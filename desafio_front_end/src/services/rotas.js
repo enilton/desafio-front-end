@@ -1,0 +1,1 @@
+export const URL_CRIAR_SESSAO = '/sessions';
