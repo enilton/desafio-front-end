@@ -1,0 +1,1 @@
+export const IDIOMA_PADRAO = 'pt-br';

@@ -1,8 +1,9 @@
-const mensagensPTBR = require('../resources/idiomas/pt-br');
+const config = require('./../../config/idiomaConfig');
+const mensagensPTBR = require('./pt-br');
 
 module.exports = {
  
-  idiomaAtual : 'pt-br',
+  idiomaAtual : config.IDIOMA_PADRAO,
 
   async  alterarIdioma(idioma) {
     this.idiomaAtual = idioma;

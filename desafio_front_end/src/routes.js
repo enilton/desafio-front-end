@@ -3,7 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Principal from './paginas/principal';
 import SignInEmail from './paginas/login/signInEmail';
-/*import Tarefa from './paginas/tarefas';*/
+import Tarefas from './paginas/tarefas';
 
 const Routes =  createStackNavigator({   
     
@@ -15,9 +15,9 @@ const Routes =  createStackNavigator({
         screen: Principal,    
     },
 
-    /*Tarefa: {
-        screen: Tarefa,
-    },*/
+    Tarefas: {
+        screen: Tarefas,
+    },
 },
 {
     initialRouteName: 'Principal',

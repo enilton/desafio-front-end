@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import RodapePrincipal from '../componentes/rodape/rodape';
-import * as AuthControle from '../utils/tokenControle';
+import * as AuthControle from '../services/AuthControle';
 import * as Paginas from '../resources/paginas';
 
 
@@ -18,9 +18,9 @@ class Principal extends Component {
        
     };  
 
-    async componentDidMount(){            
-      if (! await AuthControle.isLogado())
-        this.props.navigation.navigate(Paginas.SIGN_IN_EMAIL);  
+    async componentDidMount(){ 
+        if (!await AuthControle.buscarToken())
+            this.props.navigation.navigate(Paginas.SIGN_IN_EMAIL); 
     }
     
    
@@ -29,7 +29,7 @@ class Principal extends Component {
             <View style={styles.container}>               
                 <ScrollView style={styles.scroll} 
                             showsVerticalScrollIndicator={false}> 
-                    
+                    <Text>Logado</Text>
                 </ScrollView>
 
                 <RodapePrincipal navigation={this.props.navigation}/>                

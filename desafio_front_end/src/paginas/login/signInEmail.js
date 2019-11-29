@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
 import * as Paginas from '../../resources/paginas';
 import { ScrollView } from 'react-native-gesture-handler';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import * as Validadores from '../../utils/validadores';
-import * as MENSAGENS from '../../config/IdiomaControle';
-import * as AuthControle from '../../utils/tokenControle';
-import * as Rotas from '../../services/rotas'
-import api from '../../services/api';
+import * as MENSAGENS from '../../resources/idiomas/idiomaControle';
+import * as AuthControle from '../../services/AuthControle';
 
 class SignInEmail extends Component {
 
@@ -20,35 +17,28 @@ class SignInEmail extends Component {
 
     state = {        
         msg:'',           
-        email:'eniltjr1@gmail.com',
+        email:'usuario19@teste.com',
         senha:'123456',  
         showAlert: false,  
         showAlertWihtoutProgress: false,   
         usuario: '',  
-    };     
-
-    componentDidMount() {          
-          
-    };    
+    };       
 
     login = async () => {
-
+        console.log('teste');
+        console.log(MENSAGENS.get().AGUARDE);
+      this.setState({ msg: MENSAGENS.get().AGUARDE });        
       this.showAlert(true);
-
-      const usuarioInfo = {
-          email: this.state.email,
-          senha: this.state.senha
-      }
-        await api.post(Rotas.URL_CRIAR_SESSAO, usuarioInfo).then((response) => {
-            console.log('teste');
-          this.setState({ msg: MENSAGENS.get().LOGIN_SUCESSO });    
-          console.log(response);
-        }).catch((error) => {
-            console.error(error);
-            this.setState({ msg: MENSAGENS.get().LOGIN_FALHA });
-        });  
-        this.hideAlerts(false);
-        this.showAlert(false);
+      
+      await AuthControle.criarSessao({
+        email: this.state.email,
+        senha: this.state.senha
+      }).then(response => {
+          this.hideAlerts();
+          this.props.navigation.navigate(Paginas.PRINCIPAL); 
+      }).catch(error => {       
+          console.log(error);
+      });   
     };
   
     showAlert = (show_progress_icon) => {
@@ -117,7 +107,7 @@ class SignInEmail extends Component {
 
                         <TouchableOpacity style={styles.button}
                             onPress={this.validarForm}>
-                            <Text>Acessar</Text>
+                            <Text style={styles.buttonText}>Acessar</Text>
                         </TouchableOpacity>                          
 
                         <AwesomeAlert
@@ -152,14 +142,14 @@ class SignInEmail extends Component {
 const styles = StyleSheet.create({
     scroll: {
         flex: 5,
-        backgroundColor: "#0089FF"
+        backgroundColor: "#FAFAFA",
+        marginTop: 100,
     },
 
-    container: {
+    container: {       
         flex: 1,
-        backgroundColor: "#0089FF",
-        justifyContent: "center",
-        alignItems: "center"
+        backgroundColor: "#FAFAFA",        
+        alignItems: "center",        
     },
 
     input:{
@@ -167,7 +157,7 @@ const styles = StyleSheet.create({
         width: 280,
         backgroundColor: "#fafafa",
         alignSelf: "stretch",
-        borderColor: "#0000FF",
+        borderColor: "#0089FF",
         borderWidth:1,        
         paddingHorizontal:20,
         marginLeft:25,
@@ -179,12 +169,17 @@ const styles = StyleSheet.create({
     button: {
         height: 45, 
         width: 280,       
-        backgroundColor: "#87CEEB",
+        backgroundColor: "#0089FF",
         alignSelf: "center",
-        borderColor: "#0000FF",
+        borderColor: "#0089FF",
         borderRadius: 5,
         borderWidth: 1,               
         justifyContent: 'center'
+    },  
+
+    buttonText: {
+        color: "#FAFAFA",
+        alignSelf: "center",
     },  
 });
 

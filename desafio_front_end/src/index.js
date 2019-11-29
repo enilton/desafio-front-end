@@ -1,6 +1,6 @@
 import React from 'react';
-import './config/StatusBarConfig'
-import './config/IdiomaControle';
+import './config/statusBarConfig'
+import './resources/idiomas/idiomaControle';
 
 import Routes from './routes';
 const App =() => <Routes/>;
